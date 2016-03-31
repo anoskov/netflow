@@ -34,7 +34,7 @@ func (p *Packet) TemplateOptions() (list []*TemplateOptions) {
 	return
 }
 
-func (p *Packet) DataFlow() (list []DataFlow) {
+func (p *Packet) DataFlows() (list []DataFlow) {
 	for i := range p.FlowSets {
 		switch set := p.FlowSets[i].(type) {
 		case DataFlow:
