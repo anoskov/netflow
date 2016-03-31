@@ -5,6 +5,11 @@ type DataFlow struct {
 	FlowHeader
 }
 
+type TemplateFlow struct {
+	Records []Template
+	FlowHeader
+}
+
 type FlowHeader struct {
 	Id 	uint16
 	Length 	uint16
