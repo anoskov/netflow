@@ -1,4 +1,4 @@
-package packet
+package netflow
 
 type Packet struct {
 	Version   	uint16
