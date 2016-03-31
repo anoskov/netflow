@@ -1,4 +1,4 @@
-package models
+package netflow
 
 type DataFlow struct {
 	FlowHeader
