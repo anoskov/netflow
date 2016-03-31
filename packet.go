@@ -33,3 +33,13 @@ func (p *Packet) TemplateOptions() (list []*TemplateOptions) {
 	}
 	return
 }
+
+func (p *Packet) DataFlow() (list []DataFlow) {
+	for i := range p.FlowSets {
+		switch set := p.FlowSets[i].(type) {
+		case DataFlow:
+			list = append(list, set)
+		}
+	}
+	return
+}
