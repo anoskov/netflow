@@ -1,8 +1,11 @@
-package netflow
+package utils
 
-import "bytes"
+import (
+	"../models";
+	"bytes"
+)
 
-func extractFieldValues(buf *bytes.Buffer, fields []Field) (values [][]byte) {
+func extractFieldValues(buf *bytes.Buffer, fields []models.Field) (values [][]byte) {
 	values = make([][]byte, len(fields))
 	for i, f := range fields {
 		if buf.Len() < int(f.Length) {
@@ -12,4 +15,3 @@ func extractFieldValues(buf *bytes.Buffer, fields []Field) (values [][]byte) {
 	}
 	return
 }
-

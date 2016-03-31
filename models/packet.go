@@ -1,4 +1,4 @@
-package netflow
+package models
 
 type Packet struct {
 	Version   	uint16

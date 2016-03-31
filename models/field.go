@@ -1,4 +1,4 @@
-package netflow
+package models
 
 type Field struct {
 	Type   uint16
