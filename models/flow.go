@@ -1,13 +1,21 @@
 package models
 
 type DataFlow struct {
-	Data	[]byte
 	FlowHeader
+
+	Data	[]byte
 }
 
 type TemplateFlow struct {
-	Records []Template
 	FlowHeader
+
+	Records []Template
+}
+
+type TemplateOptionsFlow struct {
+	FlowHeader
+
+	Records []TemplateOptions
 }
 
 type FlowHeader struct {
