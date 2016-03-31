@@ -21,3 +21,15 @@ func (p *Packet) Templates() (list []*Template) {
 	}
 	return
 }
+
+func (p *Packet) TemplateOptions() (list []*TemplateOptions) {
+	for i := range p.FlowSets {
+		switch set := p.FlowSets[i].(type) {
+		case TemplateOptionsFlow:
+			for j := range set.Records {
+				list = append(list, &set.Records[j])
+			}
+		}
+	}
+	return
+}
