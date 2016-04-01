@@ -14,3 +14,13 @@ func extractFieldList(buf *bytes.Buffer, count int) (list []Field) {
 
 	return
 }
+
+func parseDataFlow(data []byte, header *FlowHeader) (interface{}, error) {
+	var set DataFlow
+
+	set.Id = header.Id
+	set.Length = header.Length
+	set.Data = data
+
+	return set, nil
+}
