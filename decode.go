@@ -3,6 +3,7 @@ package netflow
 import (
 	"bytes"
 	"encoding/binary"
+	"fmt"
 )
 
 func extractFieldList(buf *bytes.Buffer, count int) (list []Field) {
@@ -23,4 +24,8 @@ func parseDataFlow(data []byte, header *FlowHeader) (interface{}, error) {
 	set.Data = data
 
 	return set, nil
+}
+
+func errorIncompletePacket(bytes int) error {
+	return fmt.Errorf("incomplete packet, missing %d bytes.", bytes)
 }
