@@ -35,3 +35,7 @@ func errorIncompatibleVersion(version uint16) error {
 func errorIncompletePacket(bytes int) error {
 	return fmt.Errorf("incomplete packet, missing %d bytes.", bytes)
 }
+
+func errorExcessBytes(bytes int) error {
+	return fmt.Errorf("excess %d bytes at the end of the packet.", bytes)
+}
