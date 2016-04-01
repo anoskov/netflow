@@ -26,6 +26,12 @@ func parseDataFlow(data []byte, header *FlowHeader) (interface{}, error) {
 	return set, nil
 }
 
+/* Error functions */
+
+func errorIncompatibleVersion(version uint16) error {
+	return fmt.Errorf("incompatible protocol version v%d, only v9 is supported!", version)
+}
+
 func errorIncompletePacket(bytes int) error {
 	return fmt.Errorf("incomplete packet, missing %d bytes.", bytes)
 }
