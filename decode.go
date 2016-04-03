@@ -36,7 +36,7 @@ func parseTemplateFlow(data []byte, header *FlowHeader) (interface{}, error) {
 	buf := bytes.NewBuffer(data)
 	headerLen := binary.Size(tpl.Id) + binary.Size(tpl.FieldCount)
 
-	for buf.Len() >= 4 { // Padding aligns to 4 byte boundary
+	for buf.Len() >= 4 {
 		if buf.Len() < headerLen {
 			return nil, errorIncompletePacket(headerLen - buf.Len())
 		}
