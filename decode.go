@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"cmd/go/testdata/testinternal3"
 )
 
 func extractFieldList(buf *bytes.Buffer, count int) (list []Field) {
@@ -22,6 +23,39 @@ func parseDataFlow(data []byte, header *FlowHeader) (interface{}, error) {
 	flow.Id = header.Id
 	flow.Length = header.Length
 	flow.Data = data
+
+	return flow, nil
+}
+
+func parseOptionsTemplateFlowSet(data []byte, header *FlowHeader) (interface{}, error) {
+	var flow TemplateOptionsFlow
+	var tplOpt TemplateOptions
+
+	flow.Id = header.Id
+	flow.Length = header.Length
+
+	buf := bytes.NewBuffer(data)
+	headerLen := binary.Size(tplOpt.TemplateId) + binary.Size(tplOpt.ScopeLength) + binary.Size(tplOpt.OptionLength)
+	for buf.Len() >= 4 {
+		if buf.Len() < headerLen {
+			return nil, errorIncompletePacket(headerLen - buf.Len())
+		}
+		binary.Read(buf, binary.BigEndian, &tplOpt.TemplateId)
+		binary.Read(buf, binary.BigEndian, &tplOpt.ScopeLength)
+		binary.Read(buf, binary.BigEndian, &tplOpt.OptionLength)
+
+		if buf.Len() < int(tplOpt.ScopeLength)+int(tplOpt.OptionLength) {
+			return nil, errorIncompletePacket(int(tplOpt.ScopeLength) + int(tplOpt.OptionLength) - buf.Len())
+		}
+
+		scopeCount := int(tplOpt.ScopeLength) / binary.Size(Field{})
+		optionCount := int(tplOpt.OptionLength) / binary.Size(Field{})
+
+		tplOpt.Scopes = extractFieldList(buf, scopeCount)
+		tplOpt.Options = extractFieldList(buf, optionCount)
+
+		flow.Records = append(flow.Records, tplOpt)
+	}
 
 	return flow, nil
 }
