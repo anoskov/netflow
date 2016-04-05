@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"cmd/go/testdata/testinternal3"
 )
 
 func extractFieldList(buf *bytes.Buffer, count int) (list []Field) {
